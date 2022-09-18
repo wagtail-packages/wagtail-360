@@ -1,0 +1,130 @@
+#body {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 800px;
+    max-width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0 auto;
+    padding: 0 1em;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.template-homepage {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: aquamarine;
+
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .heading {
+            flex: 0 0 100%;
+            text-align: center;
+        }
+
+        .navigation {
+            flex: 0 0 100%;
+            text-align: center;
+
+            a {
+                display: inline-block;
+                margin: 0 1em;
+                color: black;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.template-tourpage {
+    background-color: lighten(aquamarine, 20%);
+}
+
+.menu-back {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+// Panorama Navigation
+.panorama-navigation {
+    background-color: aquamarine;
+    width: 1280px;
+    max-width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: 0 auto;
+}
+
+.menu-name {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+    padding: 0 1em;
+}
+
+.menu-reset {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+    padding: 0 1em;
+
+    &.active {
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+.panorama-navigation-list {
+    margin: 0;
+    padding: 1em 0 0 0;
+    list-style: none;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+
+    li {
+        padding: 0 1em;
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+/* PANORAMA */
+.panorama-container {
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 1280px) {
+    .panorama-container {
+        width: 1280px;
+        height: 720px;
+        padding-top: 0;
+    }
+}
+
+.panorama-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}

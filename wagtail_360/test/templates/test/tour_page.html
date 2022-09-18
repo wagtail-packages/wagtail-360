@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-tourpage{% endblock %}
+
+{% block content %}
+{% comment "Example Template" %}
+You'll likely need to create your own template
+{% endcomment %}
+<div class="panorama-container"></div>
+<div class="panorama-navigation">
+    <div class="menu-name">Menu</div>
+    <ul class="panorama-navigation-list">
+        {% for panorama in panoramas %}
+        <li 
+            data-id="{{ panorama.panorama_id }}"
+            data-heading="{{ panorama.heading }}"
+            data-elevation="{{ panorama.elevation }}"
+            data-zoom-level="{{ panorama.zoom_level }}"
+            {% if forloop.first %}class="active link"{% else %}class="link"{% endif %}
+            data-body="{{ panorama.body }}"
+        >
+            {{ panorama.title }}
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="menu-reset">Reset</div>
+    <div class="menu-back">
+        <a href="/">Back</a>
+    </div>
+</div>
+<div id="body"></div>
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'testapp/css/testapp.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}"></script>
+<script src="{% static 'wagtail_360/client/js/panorama.min.js' %}"></script>
+{% endblock %}
