@@ -1,0 +1,32 @@
+{% load static %}
+{% block content %}
+<div class="panorama-container"></div>
+<div class="panorama-navigation">
+    <div class="menu-name">Menu</div>
+    <ul class="panorama-navigation-list">
+        {% for panorama in panoramas %}
+        <li 
+            data-id="{{ panorama.panorama_id }}"
+            data-heading="{{ panorama.heading }}"
+            data-elevation="{{ panorama.elevation }}"
+            data-zoom-level="{{ panorama.zoom_level }}"
+            {% if forloop.first %}class="active link"{% else %}class="link"{% endif %}
+            data-body="{{ panorama.body }}"
+        >
+            {{ panorama.title }}
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="menu-reset">Reset</div>
+</div>
+<div id="body"></div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'wagtail_360/css/panorama.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}"></script>
+<script src="{% static 'wagtail_360/js/panorama.js' %}"></script>
+{% endblock %}

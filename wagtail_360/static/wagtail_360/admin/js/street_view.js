@@ -56,7 +56,6 @@
             } else {
                 zoomField.value = panorama.getPov().zoom;
             }
-            console.log(panorama.getPov().zoom);
         });
     };
 })();
