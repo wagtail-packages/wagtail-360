@@ -88,30 +88,22 @@ python manage.py migrate
 5. Repeat steps 1 - 4 until you have all the views you need.
 6. Use live preview to see the virtual tour with menu navigation.
 
-## Developer setup
+## Configuration
 
-### Install the package in editable mode
+Set the configuration in your settings.py file
 
-Activate your virtual environment and run the following commands.
+A google maps API key is required. You can generate one at <https://developers.google.com/maps/documentation/javascript>
 
-```bash
-pip install -e ".[testing]"
-make migrate
-make load
+The service isn't free but there's a generous free tier available that will be more than enough for development.
+
+```python
+GOOGLE_MAPS_API_KEY = "your-google-maps-api-key"
 ```
 
-Run the testing app.
+## Contributing
 
-```bash
-make run
-```
+If you would like to suggest an improvement to the package [contributions](docs/contrubute.md) are welcome
 
-## Frontend
+## Issues
 
-If you wish to alter the css or javascript.
-
-```bash
-nvm use
-npm install
-npm run build
-```
+If you find an issue please consider [raising and issue](https://github.com/nickmoreton/wagtail-360/issues)
