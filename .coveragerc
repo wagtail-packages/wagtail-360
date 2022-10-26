@@ -1,0 +1,4 @@
+[run]
+branch = True
+include = wagtail_360/*
+omit = */migrations/*,*/test/*
