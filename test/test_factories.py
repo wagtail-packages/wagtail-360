@@ -1,7 +1,7 @@
-from django.test import TestCase
+from test.factories import test_page_factory
+from test.testapp.models import HomePage, PanoramaPage, TourPage
 
-from wagtail_360.test.factories import test_page_factory
-from wagtail_360.test.models import HomePage, PanoramaPage, TourPage
+from django.test import TestCase
 
 
 class TestTestModels(TestCase):

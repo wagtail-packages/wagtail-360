@@ -1,6 +1,6 @@
-from wagtail.models import Page
+from test.testapp.models import HomePage, PanoramaPage, TourPage
 
-from wagtail_360.test.models import HomePage, PanoramaPage, TourPage
+from wagtail.models import Page
 
 
 def test_page_factory():
