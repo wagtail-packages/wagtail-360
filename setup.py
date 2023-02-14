@@ -40,7 +40,7 @@ setup(
         "Framework :: Wagtail :: 4",
     ],
     install_requires=[
-        "Wagtail>=4.0,<5.0",
+        "Wagtail>=4.1,<5.0",
         "wagtail-factories>=3.1.0,<4.0",
     ],
     extras_require={
