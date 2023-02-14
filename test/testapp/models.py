@@ -11,10 +11,10 @@ class HomePage(Page):
 
 
 class TourPage(Tour, Page):
-    subpage_types = ["test.PanoramaPage"]
+    subpage_types = ["test_testapp.PanoramaPage"]
     content_panels = Page.content_panels + Tour.content_panels
 
 
 class PanoramaPage(Panorama, Page):
-    parent_page_types = ["test.TourPage"]
+    parent_page_types = ["test_testapp.TourPage"]
     content_panels = Page.content_panels + Panorama.content_panels

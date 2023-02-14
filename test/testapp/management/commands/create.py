@@ -1,7 +1,7 @@
+from test.testapp.models import PanoramaPage, TourPage
+
 from django.core.management.base import BaseCommand
 from wagtail.models import Page
-
-from wagtail_360.test.models import PanoramaPage, TourPage
 
 
 class TourPageFactory:

@@ -1,8 +1,9 @@
+from test.factories import test_page_factory
+from test.testapp.models import PanoramaPage, TourPage
+
 from django.test import TestCase
 
 from wagtail_360.forms import PanoramaForm
-from wagtail_360.test.factories import test_page_factory
-from wagtail_360.test.models import PanoramaPage, TourPage
 
 
 class TestForms(TestCase):

@@ -1,7 +1,7 @@
 from django.db import models
 from django.http import HttpResponseRedirect
 from wagtail.admin.panels import FieldPanel, FieldRowPanel, HelpPanel
-from wagtail.core.fields import RichTextField
+from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 from wagtail_360.forms import PanoramaForm

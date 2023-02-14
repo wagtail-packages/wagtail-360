@@ -1,6 +1,6 @@
 import os
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 DEBUG = True
@@ -9,7 +9,8 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "wagtail_360",
-    "wagtail_360.test",
+    "test",
+    "test.testapp",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -42,7 +43,7 @@ MIDDLEWARE = [
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
-ROOT_URLCONF = "wagtail_360.test.urls"
+ROOT_URLCONF = "test.urls"
 
 TEMPLATES = [
     {
