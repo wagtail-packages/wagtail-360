@@ -10,11 +10,15 @@ class HomePage(Page):
         return context
 
 
-class TourPage(Tour, Page):
+class TourPage(Tour):
     subpage_types = ["test_testapp.PanoramaPage"]
     content_panels = Page.content_panels + Tour.content_panels
 
 
-class PanoramaPage(Panorama, Page):
+class PanoramaPage(Panorama):
     parent_page_types = ["test_testapp.TourPage"]
     content_panels = Page.content_panels + Panorama.content_panels
+
+    def serve_preview(self, request, mode_name):
+        parent = self.get_parent()
+        return parent.serve(request, mode_name)

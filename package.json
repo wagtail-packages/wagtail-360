@@ -2,17 +2,21 @@
   "name": "wagtail-360",
   "version": "1.0.0",
   "description": "This app provides an admin interface to choose google street view imagery and display an embedded virtual tour.",
-  "main": "index.js",
+  "main": "",
   "scripts": {
-    "sass:testapp": "sass --style=compressed wagtail_360/static_src/testapp/sass/*.scss wagtail_360/testapp/static/testapp/css/testapp.css",
-    "sass:admin": "sass --style=compressed wagtail_360/static_src/admin/sass/*.scss wagtail_360/static/wagtail_360/admin/css/panorama_panel.css",
+    "//[ SASS ***** ]//": "",
+    "sass:testapp": "sass --style=compressed client/testapp/sass/*.scss test/testapp/static/testapp/css/testapp.css",
+    "sass:admin": "sass --style=compressed client/wagtail/sass/*.scss wagtail_360/static/wagtail_360/admin/css/panorama_panel.css",
     "sass": "npm run sass:testapp && npm run sass:admin",
-    "parseurl": "uglifyjs wagtail_360/static_src/admin/js/parse_url.js -o wagtail_360/static/wagtail_360/admin/js/parse_url.min.js",
-    "streetview": "uglifyjs wagtail_360/static_src/admin/js/street_view.js -o wagtail_360/static/wagtail_360/admin/js/street_view.min.js",
-    "panorama": "uglifyjs wagtail_360/static_src/client/js/panorama.js -o wagtail_360/static/wagtail_360/client/js/panorama.min.js",
+    "//[ SCRIPTS ***** ]//": "",
+    "parseurl": "uglifyjs client/wagtail/js/parse_url.js -o wagtail_360/static/wagtail_360/admin/js/parse_url.min.js",
+    "streetview": "uglifyjs client/wagtail/js/street_view.js -o wagtail_360/static/wagtail_360/admin/js/street_view.min.js",
+    "panorama": "uglifyjs client/testapp/js/panorama.js -o test/testapp/static/testapp/js/panorama.min.js",
     "admin:js": "npm run parseurl && npm run streetview",
-    "serve": "browser-sync start --server --files \"wagtail_360/testapp/templates/*.html\" \"wagtail_360/testapp/static/testapp/css/*.css\" \"wagtail_360/testapp/static/testapp/js/*.js\" \"wagtail_360/static/wagtail_360/admin/css/*.css\" \"wagtail_360/static/wagtail_360/admin/js/*.js\" \"wagtail_360/static/wagtail_360/client/js/*.js\"",
-    "build": "npm run sass && npm run admin:js && npm run panorama"
+    "//[ BUILD ***** ]//": "",
+    "serve": "browser-sync start --proxy 127.0.0.1:8000 --files \"test/testapp/templates/*.html\" \"test/testapp/static/testapp/css/*.css\" \"test/testapp/static/testapp/js/*.js\" \"wagtail_360/static/wagtail_360/admin/css/*.css\" \"wagtail_360/static/wagtail_360/admin/js/*.js\" \"wagtail_360/static/wagtail_360/client/js/*.js\"",
+    "build": "npm run sass && npm run admin:js && npm run panorama",
+    "start": "npm run serve"
   },
   "repository": {
     "type": "git",
@@ -25,7 +29,7 @@
   },
   "homepage": "https://github.com/nickmoreton/wagtail-360#readme",
   "devDependencies": {
-    "browser-sync": "^2.27.10",
+    "browser-sync": "^2.27.5",
     "sass": "^1.55.0",
     "uglify-js": "^3.17.3"
   }
