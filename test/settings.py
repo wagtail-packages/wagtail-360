@@ -161,4 +161,7 @@ WAGTAIL_SITE_NAME = "Wagtail 360 Demo - "
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
 
-GOOGLE_MAPS_API_KEY = ""
+try:
+    from .maps_api_key import *  # noqa
+except ImportError:
+    pass

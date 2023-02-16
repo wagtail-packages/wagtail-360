@@ -92,10 +92,6 @@ class AbstractPanorama(models.Model):
     zoom_level = models.FloatField(verbose_name="Zoom In/Out")
     body = RichTextField(blank=True)
 
-    # parent_page_types = [
-    #     "your.tour.page.model",
-    # ]
-
     base_form_class = PanoramaForm
 
     panels = [
