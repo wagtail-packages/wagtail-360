@@ -12,8 +12,6 @@ from .panels import PanoramaPanel, ReadOnlyFieldPanel, TourPanel
 class AbstractTour(models.Model):
     class Meta:
         abstract = True
-        verbose_name = "AbstractTour"
-        verbose_name_plural = "AbstractTours"
 
     maps_url = models.TextField(
         help_text="""Copy a Google Maps Street View URL and paste it here.
@@ -88,8 +86,6 @@ class AbstractTour(models.Model):
 class AbstractPanorama(models.Model):
     class Meta:
         abstract = True
-        verbose_name = "AbstractPanorama"
-        verbose_name_plural = "AbstractPanoramas"
 
     panorama_id = models.CharField(max_length=255)
     lat = models.FloatField(verbose_name="Latitude")

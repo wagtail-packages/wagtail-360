@@ -20,8 +20,6 @@ class TestAbstractModels(TestCase):
 
         # meta
         self.assertEqual(AbstractTour._meta.abstract, True)
-        self.assertEqual(AbstractTour._meta.verbose_name, "AbstractTour")
-        self.assertEqual(AbstractTour._meta.verbose_name_plural, "AbstractTours")
 
     def test_panorama_abstract_models(self):
         # attributes
