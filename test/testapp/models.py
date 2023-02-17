@@ -24,7 +24,3 @@ class TourPage(AbstractTour, Page):
 class PanoramaPage(AbstractPanorama, Page):
     parent_page_types = ["test_testapp.TourPage"]
     content_panels = Page.content_panels + AbstractPanorama.panels
-
-    def serve_preview(self, request, mode_name):
-        parent = self.get_parent()
-        return parent.serve(request, mode_name)

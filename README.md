@@ -1,8 +1,8 @@
-# Wagtail 360 virtual tour player
+# Wagtail 360° virtual tours
 
-This app is an admin interface to choose google street view imagery and display an embedded virtual tour.
+An admin interface to choose google street view imagery and display an embedded virtual tour.
 
-It's powered by google maps Javascript API and Wagtail CMS
+Powered by [google maps Javascript API](https://developers.google.com/maps/documentation/javascript) and [Wagtail CMS](https://wagtail.org/)
 
 ![Alt text](docs/screenshot.jpg?raw=true "Title")
 
@@ -26,32 +26,30 @@ INSTALLED_APPS = [
 
 ## Usage
 
-You'll need to add 2 page models. Assuming the app is the default `home` app...
+Add 2 page models.
 
 ### The Tour Index Page
 
-This is the parent page type for each Virtual Tour
+This represents a virtual tour and is the parent page for each Panorama in this tour.
 
 ```python
-from wagtail_360.abstract_models import Tour
+from wagtail_360.abstract_models import AbstractTour
 
-class TourPage(Tour):
-    subpage_types = ["home.PanoramaPage"]
-    content_panels = Page.content_panels + [Tour.panels]
-
-    template = "home/tour_page.html"
+class TourPage(AbstractTour, Page):
+    subpage_types = ["PanoramaPage"]
+    content_panels = Page.content_panels + [AbstractTour.panels]
 ```
 
-### The Panorama Page
+### The Panorama Page Model
 
-This is the Panorama page that is added as a child of the TourPage
+This represents a single panorama and is used as a child page of a TourPage.
 
 ```python
-from wagtail_360.abstract_models import Panorama
+from wagtail_360.abstract_models import AbstractPanorama
 
-class PanoramaPage(Panorama):
-    parent_page_types = ["home.TourPage"]
-    content_panels = Page.content_panels + Panorama.panels
+class PanoramaPage(AbstractPanorama):
+    parent_page_types = ["TourPage"]
+    content_panels = Page.content_panels + AbstractPanorama.panels
 ```
 
 Then run:
@@ -61,44 +59,23 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## Build a virtual tour
-
-### Tour Page
-
-1. Search for a business on google maps. E.g. [Aquatics & Reptiles Worcester](https://www.google.com/maps/place/Aquatics+%26+Reptiles/@52.187041,-2.234878,15z/data=!4m5!3m4!1s0x0:0x87d71961c90b1709!8m2!3d52.187041!4d-2.234878)
-
-2. On the left scroll down to the Street View & 360 images and click in the picture icon.
-
-3. Click around to find a suitable starting view. [Try this link](https://www.google.com/maps/place/Aquatics+%26+Reptiles/@52.1870119,-2.234866,3a,75y,334.08h,91.65t/data=!3m7!1e1!3m5!1sAF1QipMOrPzw37q0zV2sRnLBG43s9F4dJmf1XX2zyyxv!2e10!3e13!7i13312!8i6656!4m7!3m6!1s0x0:0x87d71961c90b1709!8m2!3d52.187041!4d-2.234878!14m1!1BCgIgARICCAI)
-
-4. Copy the url from the browser address bar. Or use this:
-
-    ```text
-    https://www.google.com/maps/place/Aquatics+%26+Reptiles/@52.1870119,-2.234866,3a,75y,334.08h,91.65t/data=!3m7!1e1!3m5!1sAF1QipMOrPzw37q0zV2sRnLBG43s9F4dJmf1XX2zyyxv!2e10!3e13!7i13312!8i6656!4m7!3m6!1s0x0:0x87d71961c90b1709!8m2!3d52.187041!4d-2.234878!14m1!1BCgIgARICCAI
-    ```
-
-5. In the Wagtail admin create a new **Tour Page** and paste in the url you copied. You should see that the url is valid and the maps data has been extracted to the correct fields. **Now give the page a title and save it.**
-
-### Panorama Page
-
-1. View the Tour Page and create a new child page, the only one available is the Panorama Page so you should see the edit page. The initial panorama view will be copied over from the Tour Page fields.
-2. Click around to set the view you like. As you do that the page fields will be updated with new values. You can: **Move to a new place using the arrows** | **Spin the parorama around to find the best view** | **Zoom in or out** | **Set the elevation**
-3. Give the view a title and save the page.
-4. Add another panorama child page. This time the initial view will be the same view you set on the previous panorama.
-5. Repeat steps 1 - 4 until you have all the views you need.
-6. Use live preview to see the virtual tour with menu navigation.
-
 ## Configuration
 
 Set the configuration in your settings.py file
 
 A google maps API key is required. You can generate one at <https://developers.google.com/maps/documentation/javascript>
 
-The service isn't free but there's a generous free tier available that will be more than enough for development.
+The service isn't free but there's a generous free tier available.
 
 ```python
 GOOGLE_MAPS_API_KEY = "your-google-maps-api-key"
 ```
+
+*If you don't set the key the panorama images will still display but will be in developer mode.*
+
+## Build a virtual tour
+
+[User docs](./docs/contribute.md)
 
 ## Contributing
 

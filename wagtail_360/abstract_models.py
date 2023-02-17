@@ -48,6 +48,9 @@ class AbstractTour(models.Model):
         )
     ]
 
+    def is_previewable(self):
+        return self.get_panoramas().exists()
+
     def get_panoramas(self):
         return self.get_children().specific().all()
 

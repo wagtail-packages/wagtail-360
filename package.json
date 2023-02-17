@@ -5,18 +5,12 @@
   "main": "",
   "scripts": {
     "//[ SASS ***** ]//": "",
-    "sass:testapp": "sass --style=compressed client/testapp/sass/*.scss test/testapp/static/testapp/css/testapp.css",
-    "sass:admin": "sass --style=compressed client/wagtail/sass/*.scss wagtail_360/static/wagtail_360/admin/css/panorama_panel.css",
+    "sass:testapp": "sass --style=compressed --no-source-map client/testapp/sass/*.scss test/testapp/static/testapp/css/testapp.css",
+    "sass:admin": "sass --style=compressed --no-source-map client/wagtail/sass/*.scss wagtail_360/static/wagtail_360/admin/css/panorama_panel.css",
     "sass": "npm run sass:testapp && npm run sass:admin",
-    "//[ SCRIPTS ***** ]//": "",
-    "parseurl": "uglifyjs client/wagtail/js/parse_url.js -o wagtail_360/static/wagtail_360/admin/js/parse_url.min.js",
-    "streetview": "uglifyjs client/wagtail/js/street_view.js -o wagtail_360/static/wagtail_360/admin/js/street_view.min.js",
-    "panorama": "uglifyjs client/testapp/js/panorama.js -o test/testapp/static/testapp/js/panorama.min.js",
-    "admin:js": "npm run parseurl && npm run streetview",
     "//[ BUILD ***** ]//": "",
-    "serve": "browser-sync start --proxy 127.0.0.1:8000 --files \"test/testapp/templates/*.html\" \"test/testapp/static/testapp/css/*.css\" \"test/testapp/static/testapp/js/*.js\" \"wagtail_360/static/wagtail_360/admin/css/*.css\" \"wagtail_360/static/wagtail_360/admin/js/*.js\" \"wagtail_360/static/wagtail_360/client/js/*.js\"",
-    "build": "npm run sass && npm run admin:js && npm run panorama",
-    "start": "npm run serve"
+    "bundle": "rollup -c client/scripts/rollup.config.mjs --watch",
+    "build": "npm-run-all --parallel sass bundle"
   },
   "repository": {
     "type": "git",
@@ -29,8 +23,12 @@
   },
   "homepage": "https://github.com/nickmoreton/wagtail-360#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "browser-sync": "^2.27.5",
-    "sass": "^1.55.0",
-    "uglify-js": "^3.17.3"
+    "npm-run-all": "^4.1.5",
+    "rollup": "^3.16.0",
+    "rollup-terser": "^1.0.3",
+    "sass": "^1.55.0"
   }
 }
