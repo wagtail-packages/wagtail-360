@@ -23,4 +23,5 @@ class TourPage(AbstractTour, Page):
 
 class PanoramaPage(AbstractPanorama, Page):
     parent_page_types = ["test_testapp.TourPage"]
+    subpage_types = []
     content_panels = Page.content_panels + AbstractPanorama.panels
