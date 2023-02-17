@@ -2,17 +2,15 @@
   "name": "wagtail-360",
   "version": "1.0.0",
   "description": "This app provides an admin interface to choose google street view imagery and display an embedded virtual tour.",
-  "main": "index.js",
+  "main": "",
   "scripts": {
-    "sass:testapp": "sass --style=compressed wagtail_360/static_src/testapp/sass/*.scss wagtail_360/testapp/static/testapp/css/testapp.css",
-    "sass:admin": "sass --style=compressed wagtail_360/static_src/admin/sass/*.scss wagtail_360/static/wagtail_360/admin/css/panorama_panel.css",
+    "//[ SASS ***** ]//": "",
+    "sass:testapp": "sass --style=compressed --no-source-map client/testapp/sass/*.scss test/testapp/static/testapp/css/testapp.css",
+    "sass:admin": "sass --style=compressed --no-source-map client/wagtail/sass/*.scss wagtail_360/static/wagtail_360/admin/css/panorama_panel.css",
     "sass": "npm run sass:testapp && npm run sass:admin",
-    "parseurl": "uglifyjs wagtail_360/static_src/admin/js/parse_url.js -o wagtail_360/static/wagtail_360/admin/js/parse_url.min.js",
-    "streetview": "uglifyjs wagtail_360/static_src/admin/js/street_view.js -o wagtail_360/static/wagtail_360/admin/js/street_view.min.js",
-    "panorama": "uglifyjs wagtail_360/static_src/client/js/panorama.js -o wagtail_360/static/wagtail_360/client/js/panorama.min.js",
-    "admin:js": "npm run parseurl && npm run streetview",
-    "serve": "browser-sync start --server --files \"wagtail_360/testapp/templates/*.html\" \"wagtail_360/testapp/static/testapp/css/*.css\" \"wagtail_360/testapp/static/testapp/js/*.js\" \"wagtail_360/static/wagtail_360/admin/css/*.css\" \"wagtail_360/static/wagtail_360/admin/js/*.js\" \"wagtail_360/static/wagtail_360/client/js/*.js\"",
-    "build": "npm run sass && npm run admin:js && npm run panorama"
+    "//[ BUILD ***** ]//": "",
+    "bundle": "rollup -c client/scripts/rollup.config.mjs --watch",
+    "build": "npm-run-all --parallel sass bundle"
   },
   "repository": {
     "type": "git",
@@ -25,8 +23,12 @@
   },
   "homepage": "https://github.com/nickmoreton/wagtail-360#readme",
   "devDependencies": {
-    "browser-sync": "^2.27.10",
-    "sass": "^1.55.0",
-    "uglify-js": "^3.17.3"
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "browser-sync": "^2.27.5",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^3.16.0",
+    "rollup-terser": "^1.0.3",
+    "sass": "^1.55.0"
   }
 }

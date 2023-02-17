@@ -1,7 +1,6 @@
 from django import forms
+from django.conf import settings
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-
-from wagtail_360.utils import google_maps_api_key
 
 
 class TourPanel(MultiFieldPanel):
@@ -23,7 +22,7 @@ class PanoramaPanel(MultiFieldPanel):
         class Media:
             css = {"all": ("wagtail_360/admin/css/panorama_panel.css",)}
             js = (
-                f"https://maps.googleapis.com/maps/api/js?key={google_maps_api_key()}",
+                f"https://maps.googleapis.com/maps/api/js?key={getattr(settings, 'GOOGLE_MAPS_API_KEY', '')}",
                 "wagtail_360/admin/js/street_view.min.js",
             )
 

@@ -1,6 +1,6 @@
 from wagtail.models import Page
 
-from wagtail_360.abstract_models import Panorama, Tour
+from wagtail_360.abstract_models import AbstractPanorama, AbstractTour
 
 
 class HomePage(Page):
@@ -10,11 +10,17 @@ class HomePage(Page):
         return context
 
 
-class TourPage(Tour, Page):
+class TourPage(AbstractTour, Page):
     subpage_types = ["test_testapp.PanoramaPage"]
-    content_panels = Page.content_panels + Tour.content_panels
+    content_panels = Page.content_panels + AbstractTour.panels
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(AbstractTour, self).get_context(request, *args, **kwargs)
+        context["panoramas"] = self.get_panoramas()
+        context["api_key"] = self.get_maps_api_key()
+        return context
 
 
-class PanoramaPage(Panorama, Page):
+class PanoramaPage(AbstractPanorama, Page):
     parent_page_types = ["test_testapp.TourPage"]
-    content_panels = Page.content_panels + Panorama.content_panels
+    content_panels = Page.content_panels + AbstractPanorama.panels

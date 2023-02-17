@@ -1,16 +1,18 @@
+from django.conf import settings
 from django.db import models
 from django.http import HttpResponseRedirect
 from wagtail.admin.panels import FieldPanel, FieldRowPanel, HelpPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Page
 
 from wagtail_360.forms import PanoramaForm
-from wagtail_360.utils import google_maps_api_key
 
 from .panels import PanoramaPanel, ReadOnlyFieldPanel, TourPanel
 
 
-class BaseTour(models.Model):
+class AbstractTour(models.Model):
+    class Meta:
+        abstract = True
+
     maps_url = models.TextField(
         help_text="""Copy a Google Maps Street View URL and paste it here.
         It's values will be used as a starting point for the first panorama.""",
@@ -22,17 +24,7 @@ class BaseTour(models.Model):
     elevation = models.FloatField(verbose_name="Elevation/Pitch")
     zoom_level = models.FloatField(verbose_name="Zoom In/Out")
 
-    class Meta:
-        abstract = True
-
-
-class Tour(BaseTour, Page):
-    class Meta:
-        abstract = True
-        verbose_name = "Tour"
-        verbose_name_plural = "Tours"
-
-    content_panels = [
+    panels = [
         TourPanel(
             [
                 FieldPanel("maps_url"),
@@ -54,16 +46,25 @@ class Tour(BaseTour, Page):
         )
     ]
 
+    def is_previewable(self):
+        return self.get_panoramas().exists()
+
     def get_panoramas(self):
         return self.get_children().specific().all()
 
-    def get_context(self, request, *args, **kwargs):
-        context = super(Tour, self).get_context(request, *args, **kwargs)
-        context["panoramas"] = self.get_panoramas()
-        context["api_key"] = google_maps_api_key()
-        return context
+    @staticmethod
+    def get_maps_api_key():
+        if hasattr(settings, "GOOGLE_MAPS_API_KEY"):
+            return settings.GOOGLE_MAPS_API_KEY
+        return ""
 
     def initial_panorama_data(self):
+        """
+        Get the initial data for the panorama. It needs to start somewhere.
+
+        Returns:
+            dict: A dictionary of initial data for the tour page or the last panorama created.
+        """
         data = {}
         last_child_page = self.get_children().specific().last()
         if last_child_page:
@@ -82,7 +83,10 @@ class Tour(BaseTour, Page):
         return data
 
 
-class BasePanorama(models.Model):
+class AbstractPanorama(models.Model):
+    class Meta:
+        abstract = True
+
     panorama_id = models.CharField(max_length=255)
     lat = models.FloatField(verbose_name="Latitude")
     lng = models.FloatField(verbose_name="Longitude")
@@ -91,25 +95,9 @@ class BasePanorama(models.Model):
     zoom_level = models.FloatField(verbose_name="Zoom In/Out")
     body = RichTextField(blank=True)
 
-    class Meta:
-        abstract = True
-
-
-class Panorama(BasePanorama, Page):
-    class Meta:
-        abstract = True
-        verbose_name = "Panorama"
-        verbose_name_plural = "Panoramas"
-
-    parent_page_types = [
-        # intentionally left blank
-        # to remind you to set this in your own models
-        # e.g. parent_page_types = ["test.TourPage"]
-    ]
-
     base_form_class = PanoramaForm
 
-    content_panels = [
+    panels = [
         PanoramaPanel(
             [
                 HelpPanel("""initial data is taken from last tour panorama"""),
@@ -132,6 +120,9 @@ class Panorama(BasePanorama, Page):
         ),
         FieldPanel("body"),
     ]
+
+    def is_previewable(self):
+        return False
 
     def serve(self, *args, **kwargs):
         # redirect to the parent page, setting the panorama_id in the url

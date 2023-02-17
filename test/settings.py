@@ -4,7 +4,7 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 DEBUG = True
-SECRET_KEY = "django-insecure-1#_7w&33k06&6%5xj!kd^ojudt!yacljgh8!0#5=^pm_^y(jk6"
+SECRET_KEY = "not-so-secret"
 ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
@@ -49,7 +49,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(PROJECT_DIR, "templates"),
+            # os.path.join(PROJECT_DIR, "templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -117,20 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
-
-USE_I18N = True
-
-# USE_L10N = True
-
-USE_TZ = True
-
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -155,24 +142,13 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "test-media")
 MEDIA_URL = "/media/"
 
-
-# Wagtail settings
-
 WAGTAIL_SITE_NAME = "Wagtail 360 Demo - "
-
-# # Search
-# # https://docs.wagtail.org/en/stable/topics/search/backends.html
-# WAGTAILSEARCH_BACKENDS = {
-#     "default": {
-#         "BACKEND": "wagtail.search.backends.database",
-#     }
-# }
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
 
 try:
-    from .local import *  # noqa
+    from .maps_api_key import *  # noqa
 except ImportError:
     pass

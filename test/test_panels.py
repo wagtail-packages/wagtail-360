@@ -1,12 +1,7 @@
 from django.test import TestCase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
-from wagtail_360.panels import (
-    PanoramaPanel,
-    ReadOnlyFieldPanel,
-    TourPanel,
-    google_maps_api_key,
-)
+from wagtail_360.panels import PanoramaPanel, ReadOnlyFieldPanel, TourPanel
 
 
 class TestTourPanel(TestCase):
@@ -41,12 +36,13 @@ class TestPanoramaPanel(TestCase):
             bound_panel.Media.css,
             {"all": ("wagtail_360/admin/css/panorama_panel.css",)},
         )
-        self.assertEqual(
-            bound_panel.Media.js,
-            (
-                f"https://maps.googleapis.com/maps/api/js?key={google_maps_api_key()}",
-                "wagtail_360/admin/js/street_view.min.js",
-            ),
+        self.assertIn(
+            "https://maps.googleapis.com/maps/api/js?key=",
+            bound_panel.Media.js[0],
+        )
+        self.assertIn(
+            "wagtail_360/admin/js/street_view.min.js",
+            bound_panel.Media.js[1],
         )
 
 

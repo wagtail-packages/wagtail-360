@@ -130,5 +130,5 @@ dmypy.json
 
 
 # local settings
-local.py
+maps_api_key.py
 /node_modules

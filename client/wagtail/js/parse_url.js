@@ -10,12 +10,12 @@ window.onload = function () {
     parse the url and ste the value to "" as it could be wrongly formatted
     this means the page cannot be saved until the url is corrected
     */
-    parseUrl(urlField.value, editing = true);
+    parseUrl(urlField.value, true);
 
     urlField.addEventListener("keyup", function () {
         urlError.innerHTML = "";
         parseUrl(urlField.value);
-    });
+    }); 
 
     urlField.addEventListener("keydown", function () {
         urlField.style = urlFieldDefaultStyle;
